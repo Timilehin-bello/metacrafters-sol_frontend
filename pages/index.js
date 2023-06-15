@@ -16,8 +16,12 @@ export default function Home() {
   const [name, setName] = useState("");
   const [symbol, setSymbol] = useState("");
   const [balance, setBalance] = useState("");
-  const [inputAddress, setInputAddress] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [mintAddress, setMintAddress] = useState("");
+  const [mintValue, setMintValue] = useState("");
+  const [burnAddress, setBurnAddress] = useState("");
+  const [burnValue, setBurnValue] = useState("");
+  const [transferAddress, setTransferAddress] = useState("");
+  const [transferValue, setTransferValue] = useState("");
 
   const ConnectToWallet = async () => {
     try {
@@ -99,35 +103,59 @@ export default function Home() {
 
   const tokenBalance = async () => {
     const contract = await fetchContract();
-    console.log(currentAccount);
     const data = await contract.balanceOf(currentAccount);
-    console.log(parseInt(data));
     setBalance(parseInt(data));
   };
 
   const tokenMint = async () => {
     const contract = await fetchContract();
-    const data = await contract.mint(inputAddress, inputValue);
+    await contract.mint(mintAddress, mintValue);
     alert("Minted Successfully");
   };
 
   const tokenBurn = async () => {
     const contract = await fetchContract();
-    const data = await contract.burn(inputAddress, inputValue);
+    await contract.burn(burnAddress, burnValue);
     alert("Burn Successfully");
+  };
+
+  const tokenTransfer = async () => {
+    const contract = await fetchContract();
+    await contract.transfer(transferAddress, transferValue);
+    alert("Transfer Successfully");
   };
 
   const handleMintSubmit = (event) => {
     event.preventDefault(); // Prevent form submission
-    tokenMint();
-    // Do something with the input values
-    console.log("Input value 1:", inputAddress);
-    console.log("Input value 2:", inputValue);
+
     // Add your custom logic here
+    tokenMint();
 
     // Reset input field values
-    setInputAddress("");
-    setInputValue("");
+    setMintAddress("");
+    setMintValue("");
+  };
+
+  const handleBurnSubmit = (event) => {
+    event.preventDefault(); // Prevent form submission
+
+    // Add your custom logic here
+    tokenBurn();
+
+    // Reset input field values
+    setBurnAddress("");
+    setBurnValue("");
+  };
+
+  const handleTransferSubmit = (event) => {
+    event.preventDefault(); // Prevent form submission
+
+    // Add your custom logic here
+    tokenTransfer();
+
+    // Reset input field values
+    setTransferAddress("");
+    setTransferValue("");
   };
 
   useEffect(() => {
@@ -184,78 +212,77 @@ export default function Home() {
           <h1>Welcome to {!currentAccount ? "" : name}</h1>
         </div>
 
-        <div className={styles.grid}>
-          <form onSubmit={handleMintSubmit}>
-            <input
-              type="text"
-              value={inputAddress}
-              onChange={(e) => setInputAddress(e.target.value)}
-              placeholder="Enter text 1"
-            />
-            <input
-              type="number"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Enter text 2"
-            />
-            <button type="submit">Submit</button>
-          </form>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
+        <div>
+          <div className={styles.grid}>
+            <form onSubmit={handleMintSubmit}>
+              <div className={styles.center}>
+                <h3>Mint Token</h3>
+              </div>
 
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
+              <label htmlFor="mintAddress">Address </label>
+              <input
+                type="text"
+                id="mintAddress"
+                value={mintAddress}
+                onChange={(e) => setMintAddress(e.target.value)}
+                placeholder="Enter text 1"
+              />
+              <label htmlFor="mintValue">Amount</label>
+              <input
+                type="number"
+                id="mintValue"
+                value={mintValue}
+                onChange={(e) => setMintValue(e.target.value)}
+                placeholder="Enter text 2"
+              />
+              <button type="submit">Submit</button>
+            </form>
 
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
+            <form onSubmit={handleBurnSubmit}>
+              <div className={styles.center}>
+                <h3>Burn Token</h3>
+              </div>
+              <label htmlFor="burnAddress">Address </label>
+              <input
+                type="text"
+                id="burnAddress"
+                value={burnAddress}
+                onChange={(e) => setBurnAddress(e.target.value)}
+                placeholder="Enter text 1"
+              />
+              <label htmlFor="burnValue">Amount </label>
+              <input
+                type="number"
+                value={burnValue}
+                onChange={(e) => setBurnValue(e.target.value)}
+                placeholder="Enter text 2"
+              />
+              <button type="submit">Submit</button>
+            </form>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
+            <form onSubmit={handleTransferSubmit}>
+              <div className={styles.center}>
+                <h3>Transfer Token</h3>
+              </div>
+              <label htmlFor="transferAddress">Address </label>
+              <input
+                type="text"
+                id="transferAddress"
+                value={transferAddress}
+                onChange={(e) => setTransferAddress(e.target.value)}
+                placeholder="Enter text 1"
+              />
+              <label htmlFor="transferValue">Amount </label>
+              <input
+                type="number"
+                id="transferValue"
+                value={transferValue}
+                onChange={(e) => setTransferValue(e.target.value)}
+                placeholder="Enter text 2"
+              />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
       </main>
     </>

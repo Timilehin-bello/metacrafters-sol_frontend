@@ -46,6 +46,11 @@
   max-width: 100%;
 }
 
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
 .card {
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
@@ -97,7 +102,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
