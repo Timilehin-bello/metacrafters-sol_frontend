@@ -179,6 +179,10 @@ The contract utilizes the following error handling mechanisms:
 - `@nomicfoundation/hardhat-toolbox`: It bundles all the commonly used packages and Hardhat plugins for development in Hardhat.
 - `hardhat`: A development environment that helps in testing, compiling, deploying, and debugging dApps on the Ethereum blockchain.
 
+## Assessment Submission to MetaCrafters
+
+This smart contract serves as my submission for the assessment to MetaCrafters. I have implemented the required functionalities and included explanations for each variable and function in this README. If you have any questions or need further clarification, please let me know.
+
 ## License
 
 This Cryptite Token is licensed under the MIT License, allowing anyone to use, modify, and distribute the code. You can find the license text at the beginning of the contract file.
