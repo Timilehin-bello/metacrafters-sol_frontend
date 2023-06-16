@@ -180,6 +180,8 @@ export default function Home() {
     } catch (error) {
       console.error(error);
     }
+
+    loadBlockhainData();
   });
 
   return (
