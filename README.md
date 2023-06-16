@@ -8,8 +8,6 @@ This is a smart contract written in Solidity that implements a basic token calle
 
 # Link
 
-This is a marketplace for NFTs where users can purchase, sell, and create NFTs. It is a decentralised app built on the Ethereum blockchain.
-
 Github Link: https://github.com/Timilehin-bello/metacrafters-sol_frontend
 
 # Author
