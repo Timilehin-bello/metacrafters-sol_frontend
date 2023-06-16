@@ -159,9 +159,19 @@ export default function Home() {
   };
 
   useEffect(() => {
+    const loadBlockhainData = async () => {
+      const contract = await fetchContract();
+      const nameData = await contract.name();
+      const symbolData = await contract.symbol();
+      const balanceData = await contract.balanceOf(currentAccount);
+      setName(nameData);
+      setBalance(parseInt(balanceData));
+      setSymbol(symbolData);
+    };
+
     try {
       ConnectToWallet();
-      fetchContract();
+
       tokenName();
       tokenSymbol();
       if (currentAccount) {
@@ -184,9 +194,11 @@ export default function Home() {
         <div className={styles.description}>
           <h1>
             <p>
-              <code
-                className={styles.code}
-              >{` Balance ${balance} ${symbol}`}</code>
+              <code className={styles.code}>
+                {!currentAccount
+                  ? "Balance xxxx"
+                  : ` Balance ${balance} ${symbol}`}
+              </code>
             </p>
           </h1>
 
@@ -215,9 +227,7 @@ export default function Home() {
         <div>
           <div className={styles.grid}>
             <form onSubmit={handleMintSubmit}>
-              <div className={styles.center}>
-                <h3>Mint Token</h3>
-              </div>
+              <h3>Mint Token</h3>
 
               <label htmlFor="mintAddress">Address </label>
               <input
@@ -227,7 +237,7 @@ export default function Home() {
                 onChange={(e) => setMintAddress(e.target.value)}
                 placeholder="Enter text 1"
               />
-              <label htmlFor="mintValue">Amount</label>
+              <label htmlFor="mintValue">Amount </label>
               <input
                 type="number"
                 id="mintValue"
@@ -239,9 +249,8 @@ export default function Home() {
             </form>
 
             <form onSubmit={handleBurnSubmit}>
-              <div className={styles.center}>
-                <h3>Burn Token</h3>
-              </div>
+              <h3>Burn Token</h3>
+
               <label htmlFor="burnAddress">Address </label>
               <input
                 type="text"
@@ -261,9 +270,8 @@ export default function Home() {
             </form>
 
             <form onSubmit={handleTransferSubmit}>
-              <div className={styles.center}>
-                <h3>Transfer Token</h3>
-              </div>
+              <h3>Transfer Token</h3>
+
               <label htmlFor="transferAddress">Address </label>
               <input
                 type="text"

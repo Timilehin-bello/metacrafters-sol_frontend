@@ -46,10 +46,6 @@
   max-width: 100%;
 }
 
-.flex {
-  display: flex;
-  justify-content: center;
-}
 
 .card {
   padding: 1rem 1.2rem;
